@@ -13,7 +13,9 @@ function StudentTable({ refresh }) {
 
   const fetchStudents = async () => {
     try {
-      const res = await API.get(`/students?page=${page}&limit=${limit}&t=${Date.now()}`);
+      const res = await API.get(
+        `/students?page=${page}&limit=${limit}&t=${Date.now()}`
+      );
       setStudents(res.data.data);
       setTotal(res.data.total);
     } catch (err) {
@@ -28,8 +30,6 @@ function StudentTable({ refresh }) {
   const handleEdit = (student) => {
     setSelectedStudent(student);
   };
-
-  // refresh();
 
   const handleDelete = async (id) => {
     const confirm = await Swal.fire({
@@ -48,6 +48,7 @@ function StudentTable({ refresh }) {
 
   return (
     <div className="container mt-4">
+
       <div className="d-flex justify-content-between mb-3">
         <input className="form-control w-25" placeholder="Search..." />
 
@@ -59,6 +60,7 @@ function StudentTable({ refresh }) {
           Add New Member
         </button>
       </div>
+
       <table className="table table-bordered">
         <thead>
           <tr>
@@ -79,19 +81,16 @@ function StudentTable({ refresh }) {
               <td>{s.name}</td>
               <td>{s.email}</td>
               <td>{s.age}</td>
+
               <td>
-                {s.marks && s.marks.length > 0
-                  ? s.marks.map((m, i) => (
-                      <div key={i}>{m.subject}</div>
-                    ))
+                {s.marks?.length
+                  ? s.marks.map((m, i) => <div key={i}>{m.subject}</div>)
                   : "-"}
               </td>
 
               <td>
-                {s.marks && s.marks.length > 0
-                  ? s.marks.map((m, i) => (
-                      <div key={i}>{m.marks}</div>
-                    ))
+                {s.marks?.length
+                  ? s.marks.map((m, i) => <div key={i}>{m.marks}</div>)
                   : "-"}
               </td>
 
@@ -102,11 +101,14 @@ function StudentTable({ refresh }) {
                   data-bs-target="#editModal"
                   onClick={() => handleEdit(s)}
                 >
+                  Edit
                 </button>
+
                 <button
                   className="btn btn-danger btn-sm"
                   onClick={() => handleDelete(s.id)}
                 >
+                  Delete
                 </button>
               </td>
             </tr>

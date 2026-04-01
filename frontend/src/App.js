@@ -8,14 +8,22 @@ import StudentTable from "./components/StudentTable";
 function App() {
   const [refresh, setRefresh] = useState(false);
 
+  // ✅ Better toggle (safe version)
   const triggerRefresh = () => {
-    setRefresh(!refresh); // toggle to refresh data
+    setRefresh((prev) => !prev);
   };
 
   return (
     <>
-      <StudentTable refresh={refresh} />
-      <StudentModal fetchStudents={triggerRefresh} />
+      <div className="container mt-4">
+        <h3 className="mb-3">Student Management</h3>
+
+        {/* Table */}
+        <StudentTable refresh={refresh} />
+
+        {/* Modal */}
+        <StudentModal fetchStudents={triggerRefresh} />
+      </div>
     </>
   );
 }
